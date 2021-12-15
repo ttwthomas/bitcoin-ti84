@@ -8,6 +8,7 @@ instances=$(aws ec2 run-instances \
         --query "Instances[*].InstanceId" \
         --output text)
 echo "waiting for $instances"
+echo $instances > instances.txt
 
 for instance in $instances; do
         aws ec2 wait instance-status-ok --instance-ids $instance
