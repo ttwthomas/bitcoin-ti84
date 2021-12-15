@@ -1,4 +1,12 @@
-instances=$(aws ec2 run-instances --image-id ami-0029863845aafa9de --instance-type t3.micro --key-name canette --security-group-ids sg-0a566a38d0b1ec84c --user-data file://userdata.sh --count 3 --query "Instances[*].InstanceId" --output text)
+count=1000
+instances=$(aws ec2 run-instances \
+        --image-id ami-0029863845aafa9de \
+        --instance-type t3.micro \
+        --key-name canette \
+        --security-group-ids sg-0a566a3\
+        --count $count\ 
+        --query "Instances[*].InstanceId" \
+        --output text)
 echo "waiting for $instances"
 
 for instance in $instances; do
